@@ -132,11 +132,11 @@ class TaggingController extends GetxController {
   final RxBool isHuidRequired = false.obs;
   final RxBool isRateEnabled = true.obs;
 
-  // final PrinterSettings printerSettings = PrinterSettings();
+  final PrinterSettings printerSettings = PrinterSettings();
   @override
   void onInit() {
     super.onInit();
-    // printerSettings.loadSettings();
+    printerSettings.loadSettings();
     getVendorListingDetails(resetList: true);
     getDesignListing(resetList: true);
     // getPurityDetails();
@@ -470,7 +470,7 @@ class TaggingController extends GetxController {
     }
     log('Counter: ${isCounterDefault.value ? 'Default' : 'Not Default'}');
     log('No of Print Tag: ${printTagController.value}');
-    // printerSettings.saveSettings();
+    printerSettings.saveSettings();
     update(['counter_selection']);
     Get.back();
   }

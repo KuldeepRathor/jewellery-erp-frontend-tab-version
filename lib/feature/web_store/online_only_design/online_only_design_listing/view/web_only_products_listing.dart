@@ -116,11 +116,11 @@ class _WebOnlyProductsListingPageState
         // When navigating to AddOnlineOnlyDesign
         CustomButton2(
           onTap: () async {
-            // final result = await Get.to(() => const AddOnlineOnlyDesign());
+            final result = await Get.to(() => const AddOnlineOnlyDesign());
             // Refresh when returning
-            // if (result == true) {
-            //   controller.getProductListingDetails(resetList: true);
-            // }
+            if (result == true) {
+              controller.getProductListingDetails(resetList: true);
+            }
           },
           image: 'assets/svgs/upload.svg',
           buttonName: 'Upload',

@@ -385,11 +385,11 @@ class CreateSalesViewModel extends GetxController {
         // Print estimate slip if enabled
         if (shouldPrintEstimateSlip) {
           log("Printing sales estimate slip...");
-          // PosThermalPrinter thermalPrinter = PosThermalPrinter();
-          // await thermalPrinter.printSalesEstimateSlip(
-          //   salesRecord: getSalesRecordByIdAggregateResponse.value.data!,
-          //   estimatePrintTemplate: estimatePrintTemplate,
-          // );
+          PosThermalPrinter thermalPrinter = PosThermalPrinter();
+          await thermalPrinter.printSalesEstimateSlip(
+            salesRecord: getSalesRecordByIdAggregateResponse.value.data!,
+            estimatePrintTemplate: estimatePrintTemplate,
+          );
           log("Sales estimate slip printed successfully");
         } else {
           log(
@@ -406,10 +406,10 @@ class CreateSalesViewModel extends GetxController {
         // Print item difference slip if enabled
         if (shouldPrintItemDifferenceSlip) {
           log("Printing item difference slip...");
-          // PosThermalPrinter thermalPrinter = PosThermalPrinter();
-          // await thermalPrinter.printItemDifferenceSlip(
-          //   salesRecord: getSalesRecordByIdAggregateResponse.value.data!,
-          // );
+          PosThermalPrinter thermalPrinter = PosThermalPrinter();
+          await thermalPrinter.printItemDifferenceSlip(
+            salesRecord: getSalesRecordByIdAggregateResponse.value.data!,
+          );
           log("Item difference slip printed successfully");
         } else {
           log(
@@ -467,11 +467,11 @@ class CreateSalesViewModel extends GetxController {
       );
 
       // Print the valuation slip using thermal printer
-      // PosThermalPrinter thermalPrinter = PosThermalPrinter();
-      // await thermalPrinter.printOldGoldValuationSlip(
-      //   oldGoldData: oldGoldResponse,
-      //   InvoiceNo: salesRecord.saleNumber ?? "",
-      // );
+      PosThermalPrinter thermalPrinter = PosThermalPrinter();
+      await thermalPrinter.printOldGoldValuationSlip(
+        oldGoldData: oldGoldResponse,
+        InvoiceNo: salesRecord.saleNumber ?? "",
+      );
 
       log("Old gold valuation slip printed successfully");
     } catch (e, stackTrace) {

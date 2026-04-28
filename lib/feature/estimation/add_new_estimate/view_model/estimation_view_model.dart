@@ -15,6 +15,7 @@ import 'package:jewellery_erp_frontend_tab_version/feature/home/view_model/globa
 import 'package:jewellery_erp_frontend_tab_version/feature/sales/new_sales/create_sales_invoice/models/get_sale_by_estimation_number_response.dart';
 import 'package:jewellery_erp_frontend_tab_version/feature/sales/new_sales/create_sales_invoice/models/post_sales_request_model.dart';
 import 'package:jewellery_erp_frontend_tab_version/utils/metal_type_constants.dart';
+import 'package:jewellery_erp_frontend_tab_version/utils/pos_printer/pos_thermal_printer.dart';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -101,14 +102,14 @@ class EstimationViewModel extends GetxController {
             .data
             ?.estimatePrintTemplate;
 
-    // PosThermalPrinter thermalPrinter = PosThermalPrinter();
-    // await thermalPrinter.printEstimateSlip(
-    //   estimate: controller.controllers,
-    //   responseEstimate: estimate,
-    //   rateController: rateCaratInputController,
-    //   includeGstInPrint: includeGStInPrint ?? includeGstInPrint.value,
-    //   estimatePrintTemplate: estimatePrintTemplate,
-    // );
+    PosThermalPrinter thermalPrinter = PosThermalPrinter();
+    await thermalPrinter.printEstimateSlip(
+      estimate: controller.controllers,
+      responseEstimate: estimate,
+      rateController: rateCaratInputController,
+      includeGstInPrint: includeGStInPrint ?? includeGstInPrint.value,
+      estimatePrintTemplate: estimatePrintTemplate,
+    );
 
     update();
   }

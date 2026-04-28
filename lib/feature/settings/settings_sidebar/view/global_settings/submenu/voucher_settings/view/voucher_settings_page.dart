@@ -89,13 +89,13 @@ class _VoucherSettingsPageState extends State<VoucherSettingsPage> {
         Row(
           children: [
             const Spacer(),
-            // CustomButton1(
-            //   buttonName: "Add Voucher",
-            //   onTap: () {
-            //     log("Add new voucher");
-            //     controller.navigateToCreateVoucher();
-            //   },
-            // ),
+            CustomButton1(
+              buttonName: "Add Voucher",
+              onTap: () {
+                log("Add new voucher");
+                controller.navigateToCreateVoucher();
+              },
+            ),
             const SizedBox(width: 16),
           ],
         ),

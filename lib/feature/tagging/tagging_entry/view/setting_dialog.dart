@@ -30,10 +30,10 @@ class _SettingsDialogState extends State<SettingsDialog> {
   void initState() {
     super.initState();
     _dialogFocusNode = FocusNode();
-    // controller.printerNameController.value.text =
-    //     controller.printerSettings.printerName;
-    // controller.scalePortController.value.text =
-    //     controller.printerSettings.scalePort;
+    controller.printerNameController.value.text =
+        controller.printerSettings.printerName;
+    controller.scalePortController.value.text =
+        controller.printerSettings.scalePort;
 
     // Add a longer delay and ensure focus is captured
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -269,9 +269,9 @@ class _SettingsDialogState extends State<SettingsDialog> {
                     controller: controller.printerNameController.value,
                     name: "Printer Name",
                     hintText: "Enter printer name (e.g., GODEX G500)",
-                    // onChanged: (value) {
-                    //   controller.printerSettings.updatePrinterName(value);
-                    // },
+                    onChanged: (value) {
+                      controller.printerSettings.updatePrinterName(value);
+                    },
                   ),
                 ],
               ),
@@ -293,9 +293,9 @@ class _SettingsDialogState extends State<SettingsDialog> {
                     controller: controller.scalePortController.value,
                     name: "Scale Port",
                     hintText: "Enter port name (e.g., COM8)",
-                    // onChanged: (value) {
-                    //   controller.printerSettings.updateScalePort(value);
-                    // },
+                    onChanged: (value) {
+                      controller.printerSettings.updateScalePort(value);
+                    },
                   ),
                 ],
               ),

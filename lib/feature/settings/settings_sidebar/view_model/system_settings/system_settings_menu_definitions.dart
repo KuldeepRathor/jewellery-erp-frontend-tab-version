@@ -13,13 +13,13 @@ class SystemSettingsMenuDefinitions {
   static List<SidebarMenuItem> _getAllMenuItems() {
     return [
       // General Settings - accessible to all roles
-      // SidebarMenuItem(
-      //   id: 'print_configuration',
-      //   title: 'Print Configuration',
-      //   iconPath: 'assets/svgs/settings.svg',
-      //   selectedIconPath: 'assets/svgs/settings_selected.svg',
-      //   defaultPage: PrintSettingsConfigurationPage(),
-      // ),
+      SidebarMenuItem(
+        id: 'print_configuration',
+        title: 'Print Configuration',
+        iconPath: 'assets/svgs/settings.svg',
+        selectedIconPath: 'assets/svgs/settings_selected.svg',
+        defaultPage: PrintSettingsConfigurationPage(),
+      ),
     ];
   }
 

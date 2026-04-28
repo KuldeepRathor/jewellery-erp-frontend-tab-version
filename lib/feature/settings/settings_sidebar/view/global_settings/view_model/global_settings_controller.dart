@@ -212,8 +212,8 @@ class GlobalSettingsController extends GetxController {
         return const PreferencesSettingsPage();
       case 'print_settings':
         return const PrintSettingsPage();
-      // case 'print_configuration':
-      //   return PrintSettingsConfigurationPage();
+      case 'print_configuration':
+        return PrintSettingsConfigurationPage();
       case 'bank_payment_accounts':
         return const PaymentAccountsSettingsPage();
       // case 'voucher_settings':

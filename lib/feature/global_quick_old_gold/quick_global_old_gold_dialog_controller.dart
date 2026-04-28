@@ -627,8 +627,8 @@ class QuickGlobalOldGoldDialogController extends GetxController {
   }) async {
     log("Print valuation called");
 
-    // PosThermalPrinter thermalPrinter  = PosThermalPrinter();
-    // await thermalPrinter.printValuationSlip(oldGoldData: oldgoldResponse);
+    PosThermalPrinter thermalPrinter = PosThermalPrinter();
+    await thermalPrinter.printValuationSlip(oldGoldData: oldgoldResponse);
   }
 
   bool isRowEmpty(OldGoldDetailsTableData row) {

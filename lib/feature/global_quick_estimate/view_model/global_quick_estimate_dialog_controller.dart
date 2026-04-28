@@ -9,6 +9,7 @@ import 'package:jewellery_erp_frontend_tab_version/feature/purchase/purchase_cre
 import 'package:jewellery_erp_frontend_tab_version/global_controllers/gold_rate_controller.dart';
 import 'package:jewellery_erp_frontend_tab_version/repository/inventory_repository.dart';
 import 'package:jewellery_erp_frontend_tab_version/utils/calculator/estimation_calculator.dart';
+import 'package:jewellery_erp_frontend_tab_version/utils/pos_printer/pos_thermal_printer.dart';
 import 'package:jewellery_erp_frontend_tab_version/utils/utils.dart';
 
 class BarcodeScannerDialogController extends GetxController {
@@ -94,7 +95,7 @@ class BarcodeScannerDialogController extends GetxController {
     GetTaggingLineItemCodeTagResponse itemResponse,
   ) async {
     try {
-      // PosThermalPrinter printer = PosThermalPrinter();
+      PosThermalPrinter printer = PosThermalPrinter();
 
       // Create an EstimationItemDetailsTableData for printing
       EstimationItemDetailsTableData estimationData =
@@ -257,15 +258,15 @@ class BarcodeScannerDialogController extends GetxController {
               ?.estimatePrintTemplate;
 
       // Print the item
-      // await printer.printSingleQuickEstimate(
-      //   estimate: [estimationData],
-      //   responseEstimate: PostEstimateResponse(
-      //     billingSummary: billingSummary,
-      //     estimateNumber: estimationData.barcode,
-      //   ),
-      //   rateController: rateController,
-      //   estimatePrintTemplate: estimatePrintTemplate,
-      // );
+      await printer.printSingleQuickEstimate(
+        estimate: [estimationData],
+        responseEstimate: PostEstimateResponse(
+          billingSummary: billingSummary,
+          estimateNumber: estimationData.barcode,
+        ),
+        rateController: rateController,
+        estimatePrintTemplate: estimatePrintTemplate,
+      );
     } catch (e) {
       log("Error printing item: $e");
       throw Exception("Failed to print item: ${e.toString()}");

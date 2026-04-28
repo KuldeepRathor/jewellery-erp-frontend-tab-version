@@ -189,7 +189,7 @@ class WebOnlyProductsListingController extends GetxController {
 
   Future<void> onEdit(WebstoreStockValue product) async {
     editProductId.value = product.id ?? "";
-    // Get.to(() => AddOnlineOnlyDesign(id: editProductId.value));
+    Get.to(() => AddOnlineOnlyDesign(id: editProductId.value));
     update();
   }
 

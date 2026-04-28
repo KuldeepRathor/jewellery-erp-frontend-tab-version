@@ -44,6 +44,7 @@ import 'package:jewellery_erp_frontend_tab_version/feature/sales/new_sales/creat
 import 'package:jewellery_erp_frontend_tab_version/feature/sales/new_sales/sales_listing/view/sales_listing_page.dart';
 import 'package:jewellery_erp_frontend_tab_version/feature/sales/new_sales_return/sales_return_listing/view/sales_return_listing_page.dart';
 import 'package:jewellery_erp_frontend_tab_version/feature/tagging/counter_transfer_listing/view/counter_transfer_listing.dart';
+import 'package:jewellery_erp_frontend_tab_version/feature/tagging/re_tag/view/re_tag_view.dart';
 import 'package:jewellery_erp_frontend_tab_version/feature/tagging/tagged_items/items_list/view/item_listing_page.dart';
 import 'package:jewellery_erp_frontend_tab_version/feature/tagging/tagging_entry/view/tagging_entry_view.dart';
 import 'package:jewellery_erp_frontend_tab_version/feature/web_store/home_page/webstore_sidebar/view/banners_webstore.dart';
@@ -126,11 +127,11 @@ class MenuDefinitions {
             page: const TaggingNewEntryPage(),
             requiresConfirmation: true,
           ),
-          // SidebarSubMenuItem(
-          //   id: 'tagging_retag',
-          //   title: 'Retag',
-          //   page: const ReTagView(),
-          // ),
+          SidebarSubMenuItem(
+            id: 'tagging_retag',
+            title: 'Retag',
+            page: const ReTagView(),
+          ),
           SidebarSubMenuItem(
             id: 'tagging_stock_heads',
             title: 'Stock Heads',
@@ -588,7 +589,7 @@ class MenuDefinitions {
       OrderToMakeListingPage,
       ApprovalIssuePage,
       ApprovalReceiptPage,
-      // ReTagView,
+      ReTagView,
     ];
   }
 

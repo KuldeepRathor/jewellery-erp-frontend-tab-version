@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
-import 'package:jewellery_erp_frontend_tab_version/base/logging/talker_controller.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:jewellery_erp_frontend_tab_version/base/logging/talker_controller.dart';
 import 'package:jewellery_erp_frontend_tab_version/base/networks/api_dio_client.dart';

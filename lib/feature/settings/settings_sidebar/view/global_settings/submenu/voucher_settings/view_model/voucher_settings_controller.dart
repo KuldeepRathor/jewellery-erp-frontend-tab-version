@@ -243,9 +243,9 @@ class VoucherSettingsController extends GetxController {
                               .toList(),
                   onSelected: (value) {
                     switch (value) {
-                      // case 'Edit':
-                      //   _handleEditVoucherSequence(group);
-                      //   break;
+                      case 'Edit':
+                        _handleEditVoucherSequence(group);
+                        break;
                       case 'Delete':
                         _handleDeleteVoucherSequence(group);
                         break;
@@ -261,20 +261,20 @@ class VoucherSettingsController extends GetxController {
     );
   }
 
-  // void _handleEditVoucherSequence(GetSequencesListingGroupedResponse? group) {
-  //   if (group == null) return;
-  //   final sidebarController = Get.find<SettingsSidebarController>(
-  //     tag: 'globalSettings',
-  //   );
-  //   sidebarController.navigateToPage(
-  //     EditVoucherPage(
-  //       voucherSeriesType: group.voucherSeriesType?.toString() ?? '',
-  //       voucherSeriesCommodity: group.voucherSeriesCommodity?.toString() ?? '',
-  //       typeName: group.voucherSeriesTypeName ?? '',
-  //       commodityName: group.voucherSeriesCommodityName ?? '',
-  //     ),
-  //   );
-  // }
+  void _handleEditVoucherSequence(GetSequencesListingGroupedResponse? group) {
+    if (group == null) return;
+    final sidebarController = Get.find<SettingsSidebarController>(
+      tag: 'globalSettings',
+    );
+    sidebarController.navigateToPage(
+      EditVoucherPage(
+        voucherSeriesType: group.voucherSeriesType?.toString() ?? '',
+        voucherSeriesCommodity: group.voucherSeriesCommodity?.toString() ?? '',
+        typeName: group.voucherSeriesTypeName ?? '',
+        commodityName: group.voucherSeriesCommodityName ?? '',
+      ),
+    );
+  }
 
   void _handleDeleteVoucherSequence(GetSequencesListingGroupedResponse? group) {
     if (group != null) {
@@ -298,10 +298,10 @@ class VoucherSettingsController extends GetxController {
     }
   }
 
-  // void navigateToCreateVoucher() {
-  //   final sidebarController = Get.find<SettingsSidebarController>(
-  //     tag: 'globalSettings',
-  //   );
-  //   sidebarController.navigateToPage(const CreateVoucherPage());
-  // }
+  void navigateToCreateVoucher() {
+    final sidebarController = Get.find<SettingsSidebarController>(
+      tag: 'globalSettings',
+    );
+    sidebarController.navigateToPage(const CreateVoucherPage());
+  }
 }

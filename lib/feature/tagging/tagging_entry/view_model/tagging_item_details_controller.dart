@@ -1106,10 +1106,10 @@ class TaggingItemDetailsController extends GetxController {
         // );
 
         final talker = Get.find<TalkerController>().talker;
-        // final printer = GodexG500Printer(
-        //   logger: talker,
-        //   selectedPrinter: taggingController.printerSettings.printerName,
-        // );
+        final printer = GodexG500Printer(
+          logger: talker,
+          selectedPrinter: taggingController.printerSettings.printerName,
+        );
         final itemValue = item.lineItems?.lastOrNull;
         final labelConfig = LabelConfig(
           weight: itemValue?.netWeight ?? "",
@@ -1123,11 +1123,11 @@ class TaggingItemDetailsController extends GetxController {
         );
 
         try {
-          // await printer.printLabel(labelConfig);
+          await printer.printLabel(labelConfig);
         } catch (e) {
-          // talker.error(
-          //   'Error printing label with printer ${taggingController.printerSettings.printerName}: $e',
-          // );
+          talker.error(
+            'Error printing label with printer ${taggingController.printerSettings.printerName}: $e',
+          );
           rethrow;
         }
 
@@ -1562,79 +1562,78 @@ class TaggingItemDetailsController extends GetxController {
       return;
     }
 
-    // try {
-    //   // Show loading dialog
-    //   Get.dialog(
-    //     Dialog(
-    //       child: Padding(
-    //         padding: const EdgeInsets.all(16.0),
-    //         child: Column(
-    //           mainAxisSize: MainAxisSize.min,
-    //           children: [
-    //             const CircularProgressIndicator(),
-    //             const SizedBox(height: 16),
-    //             // Text(
-    //             //   'Reading weight from scale on port ${taggingController.printerSettings.scalePort}...',
-    //             // ),
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //     barrierDismissible: false,
-    //   );
+    try {
+      // Show loading dialog
+      Get.dialog(
+        Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CircularProgressIndicator(),
+                const SizedBox(height: 16),
+                Text(
+                  'Reading weight from scale on port ${taggingController.printerSettings.scalePort}...',
+                ),
+              ],
+            ),
+          ),
+        ),
+        barrierDismissible: false,
+      );
 
-    //   // Get weight from scale
-    //   // final String? weight = await WeightScaleManager().getWeightFromScale(
-    //   //   scalePort: taggingController.printerSettings.scalePort,
-    //   // );
+      // Get weight from scale
+      final String? weight = await WeightScaleManager().getWeightFromScale(
+        scalePort: taggingController.printerSettings.scalePort,
+      );
 
-    //   // Close dialog
-    //   if (Get.isDialogOpen!) {
-    //     Get.back();
-    //   }
+      // Close dialog
+      if (Get.isDialogOpen!) {
+        Get.back();
+      }
 
-//       if (weight != null) {
-//         // Update gross weight field
-//         controllers[rowIndex].gwt.text = weight;
+      if (weight != null) {
+        // Update gross weight field
+        controllers[rowIndex].gwt.text = weight;
 
-//         // Always update net weight with the same value
-//         controllers[rowIndex].nwt.text = weight;
+        // Always update net weight with the same value
+        controllers[rowIndex].nwt.text = weight;
 
-//         // Select all text in the net weight field
-//         controllers[rowIndex].nwt.selection = TextSelection(
-//           baseOffset: 0,
-//           extentOffset: controllers[rowIndex].nwt.text.length,
-//         );
+        // Select all text in the net weight field
+        controllers[rowIndex].nwt.selection = TextSelection(
+          baseOffset: 0,
+          extentOffset: controllers[rowIndex].nwt.text.length,
+        );
 
-//         // Request focus on net weight field (index 4 in tableFocusNodes)
-//         controllers[rowIndex].tableFocusNodes[4].requestFocus();
+        // Request focus on net weight field (index 4 in tableFocusNodes)
+        controllers[rowIndex].tableFocusNodes[4].requestFocus();
 
-//         // Update current row and column index
-//         currentRowIndex.value = rowIndex;
-//         currentColIndex.value = 4; // Net weight column
+        // Update current row and column index
+        currentRowIndex.value = rowIndex;
+        currentColIndex.value = 4; // Net weight column
 
-//         // Update calculations
-//         updateTotals();
+        // Update calculations
+        updateTotals();
 
-//         // Fetch tag and code if design is selected
-//         if (controllers[rowIndex].designId.isNotEmpty) {
-//           checkAndFetchTagAndCode(rowIndex);
-//         }
+        // Fetch tag and code if design is selected
+        if (controllers[rowIndex].designId.isNotEmpty) {
+          checkAndFetchTagAndCode(rowIndex);
+        }
 
-//         showSuccessToast(message: 'Weight captured: $weight g');
-//       } else {
-//         showErrorToast(
-//           message:
-//               'Failed to get stable weight reading from scale on port ${taggingController.printerSettings.scalePort}',
-//         );
-//       }
-//     } catch (e) {
-//       log('Error in readWeightFromScale: $e');
-//       if (Get.isDialogOpen!) {
-//         Get.back();
-//       }
-//       showErrorToast(message: 'Scale error: $e');
-//     }
-//   }
-// }
-    }}
+        showSuccessToast(message: 'Weight captured: $weight g');
+      } else {
+        showErrorToast(
+          message:
+              'Failed to get stable weight reading from scale on port ${taggingController.printerSettings.scalePort}',
+        );
+      }
+    } catch (e) {
+      log('Error in readWeightFromScale: $e');
+      if (Get.isDialogOpen!) {
+        Get.back();
+      }
+      showErrorToast(message: 'Scale error: $e');
+    }
+  }
+}
