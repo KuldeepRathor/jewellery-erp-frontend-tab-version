@@ -52,9 +52,15 @@ class PrinterSettingsController extends GetxController {
   void onInit() {
     super.onInit();
     _initializeSettings();
-    _initializeSubscriptions();
     _setPlatformDefaults();
-    scan();
+    // Defer Bluetooth/USB subscription and scan until after the first frame
+    // so the native plugin has its Activity reference attached. Calling
+    // stateBluetooth immediately in onInit triggers verifyIsBluetoothIsOn →
+    // checkPermissions before the Activity is ready → NullPointerException.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeSubscriptions();
+      scan();
+    });
   }
 
   void _initializeSettings() async {
@@ -119,13 +125,23 @@ class PrinterSettingsController extends GetxController {
   }
 
   void _initializeSubscriptions() {
-    _btStatusSubscription = printerManager.stateBluetooth.listen((status) {
-      _handleBluetoothStatus(status);
-    });
+    try {
+      _btStatusSubscription = printerManager.stateBluetooth.listen(
+        (status) => _handleBluetoothStatus(status),
+        onError: (e) => log('Bluetooth status stream error: $e'),
+      );
+    } catch (e) {
+      log('Failed to subscribe to Bluetooth status (no Bluetooth hardware or permission denied): $e');
+    }
 
-    _usbStatusSubscription = printerManager.stateUSB.listen((status) {
-      _handleUsbStatus(status);
-    });
+    try {
+      _usbStatusSubscription = printerManager.stateUSB.listen(
+        (status) => _handleUsbStatus(status),
+        onError: (e) => log('USB status stream error: $e'),
+      );
+    } catch (e) {
+      log('Failed to subscribe to USB status: $e');
+    }
   }
 
   void _handleBluetoothStatus(BTStatus status) {
@@ -172,23 +188,27 @@ class PrinterSettingsController extends GetxController {
     update();
     _discoverySubscription?.cancel();
 
-    _discoverySubscription = printerManager
-        .discovery(type: defaultPrinterType, isBle: isBle)
-        .listen((device) {
-          // Add device to the list
-          BluetoothPrinter bluetoothPrinter = BluetoothPrinter(
-            deviceName: device.name,
-            address: device.address,
-            isBle: isBle,
-            vendorId: device.vendorId,
-            productId: device.productId,
-            typePrinter: defaultPrinterType,
+    try {
+      _discoverySubscription = printerManager
+          .discovery(type: defaultPrinterType, isBle: isBle)
+          .listen(
+            (device) {
+              final bluetoothPrinter = BluetoothPrinter(
+                deviceName: device.name,
+                address: device.address,
+                isBle: isBle,
+                vendorId: device.vendorId,
+                productId: device.productId,
+                typePrinter: defaultPrinterType,
+              );
+              devices.add(bluetoothPrinter);
+              update();
+            },
+            onError: (e) => log('Device discovery error: $e'),
           );
-
-          devices.add(bluetoothPrinter);
-
-          update();
-        });
+    } catch (e) {
+      log('Failed to start device discovery (permission denied or hardware unavailable): $e');
+    }
   }
 
   void setPort(String value) {
