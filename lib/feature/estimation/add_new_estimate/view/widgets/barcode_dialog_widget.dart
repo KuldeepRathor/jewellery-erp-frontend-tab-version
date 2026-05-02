@@ -101,6 +101,13 @@ class _BarcodeDialogWidgetState extends State<BarcodeDialogWidget> {
           onChanged: (value) {
             // Only for Item Code field
             if (title == "Item Code") {
+              final upperCaseValue = value.toUpperCase();
+              final cursorPos = controller.selection.baseOffset;
+              controller.value = TextEditingValue(
+                text: upperCaseValue,
+                selection: TextSelection.collapsed(offset: cursorPos),
+              );
+
               int? barcodeNum = int.tryParse(value);
               log("barcode: $barcodeNum");
 
