@@ -21,6 +21,7 @@ import 'package:jewellery_erp_frontend_tab_version/utils/widgets/custom_dashed_l
 import 'package:jewellery_erp_frontend_tab_version/utils/widgets/custom_popup_menu_button_widget.dart';
 
 import 'package:jewellery_erp_frontend_tab_version/utils/widgets/custom_table_widget.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class EstimationTableWidget extends StatefulWidget {
   const EstimationTableWidget({super.key});
@@ -37,6 +38,7 @@ class _EstimationTableWidgetState extends State<EstimationTableWidget> {
       Get.find<EstimationViewModel>();
 
   final OldGoldController oldGoldController = Get.find<OldGoldController>();
+  String? result;
   // final InventoryViewmodel inventoryViewmodel = Get.find<InventoryViewmodel>();
 
   late KeyEventResult Function(FocusNode, KeyEvent, int rowIndex)
@@ -162,11 +164,43 @@ class _EstimationTableWidgetState extends State<EstimationTableWidget> {
                             fontWeight: FontWeight.bold,
                           ),
                           const Spacer(),
-                          const CustomText(
-                            text: "Scan",
-                            color: primaryColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
+                          TextButton(
+                            onPressed: () async {
+                              String?
+                              res = await SimpleBarcodeScanner.scanBarcode(
+                                context,
+                                barcodeAppBar: const BarcodeAppBar(
+                                  appBarTitle: 'Scan Barcode',
+                                  centerTitle: false,
+                                  enableBackButton: true,
+                                  backButtonIcon: Icon(Icons.arrow_back_ios),
+                                ),
+                                isShowFlashIcon: true,
+                                delayMillis: 2000,
+                                cameraFace:
+                                    CameraFace.back,
+                              );
+
+                              if (res != null && res != "-1") {
+                                final controller =
+                                    Get.find<EstimationItemDetailsController>();
+
+                                int rowIndex = controller.currentRowIndex.value;
+
+                                controller.fetchTaggingLineItemByBarcode(
+                                  rowIndex,
+                                  res,
+                                );
+                              }
+                            },
+                            child: const Text(
+                              "Scan",
+                              style: TextStyle(
+                                color: primaryColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                           const SizedBox(width: 8),
                           const SizedBox(
