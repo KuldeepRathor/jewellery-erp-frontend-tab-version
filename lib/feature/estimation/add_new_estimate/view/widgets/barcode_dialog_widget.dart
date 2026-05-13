@@ -95,6 +95,8 @@ class _BarcodeDialogWidgetState extends State<BarcodeDialogWidget> {
         TextFormField(
           controller: controller,
           focusNode: focusNode,
+          keyboardType:
+              title == "Tag No" ? TextInputType.number : TextInputType.text,
           decoration: const InputDecoration(border: OutlineInputBorder()),
           textInputAction: TextInputAction.next,
           onFieldSubmitted: onFieldSubmitted,
