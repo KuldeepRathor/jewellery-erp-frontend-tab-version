@@ -95,12 +95,21 @@ class _BarcodeDialogWidgetState extends State<BarcodeDialogWidget> {
         TextFormField(
           controller: controller,
           focusNode: focusNode,
+          keyboardType:
+              title == "Tag No" ? TextInputType.number : TextInputType.text,
           decoration: const InputDecoration(border: OutlineInputBorder()),
           textInputAction: TextInputAction.next,
           onFieldSubmitted: onFieldSubmitted,
           onChanged: (value) {
             // Only for Item Code field
             if (title == "Item Code") {
+              final upperCaseValue = value.toUpperCase();
+              final cursorPos = controller.selection.baseOffset;
+              controller.value = TextEditingValue(
+                text: upperCaseValue,
+                selection: TextSelection.collapsed(offset: cursorPos),
+              );
+
               int? barcodeNum = int.tryParse(value);
               log("barcode: $barcodeNum");
 
